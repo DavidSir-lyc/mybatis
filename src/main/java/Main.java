@@ -10,12 +10,11 @@ import java.io.InputStream;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        // 读取mybatis全局配置文件
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
+        // SqlSessionFactory是数据库连接池，sqlSession代表一次mysql会话连接
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        // 获取sqlSession
         try {
             // selectOne(namespace.id, 指定传入sql的参数)
             User user = sqlSession.selectOne("UserMapper.selectUser", 1);

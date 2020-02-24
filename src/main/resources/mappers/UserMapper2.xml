@@ -8,7 +8,6 @@
         select *from user where id=#{id}
     </select>
 
-
 <!--    &lt;!&ndash;${}拼接sql串，接收参数的内容，${}中只能使用value，存在sql漏洞&ndash;&gt;
     <select id="findUserByName" parameterType="java.lang.String" resultType="lyc.java.mybatis.POJO.User">
         SELECT *FROM USER WHERE username LIKE '%${value}%'
