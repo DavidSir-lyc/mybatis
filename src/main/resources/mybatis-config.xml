@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--
+    mybatis一切从mybatis-config.xml开始
+    db资源信息 + mapper信息
+ -->
+<configuration>
+    <properties>
+        <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/myDB?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true"/>
+        <property name="username" value="root"/>
+        <property name="password" value="lyc1415926"/>
+    </properties>
+
+    <environments default="dev">
+        <environment id="dev">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/myDB?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true" />
+                <property name="username" value="root" />
+                <property name="password" value="lyc1415926" />
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="mappers/UserMapper.xml"/>
+        <mapper resource="mappers/UserMapper2.xml"/>
+    </mappers>
+</configuration>

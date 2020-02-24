@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="lyc.java.mybatis.mapper.UserMapper">
+    <select id="selectUserById" parameterType="int" resultType="lyc.java.mybatis.POJO.User">
+        select *from user where id=#{id}
+    </select>
+
+
+<!--    &lt;!&ndash;${}拼接sql串，接收参数的内容，${}中只能使用value，存在sql漏洞&ndash;&gt;
+    <select id="findUserByName" parameterType="java.lang.String" resultType="lyc.java.mybatis.POJO.User">
+        SELECT *FROM USER WHERE username LIKE '%${value}%'
+    </select>
+
+    &lt;!&ndash; 添加用户 &ndash;&gt;
+    &lt;!&ndash; 指定输入参数类型是pojo(包括用户信息)
+        #{}中指定pojo（User）属性名,接收到pojo的属性值
+        Mybatis通过OGNL获取对象的属性值
+     &ndash;&gt;
+    <insert id="insertUser" parameterType="com.sw.po.User">
+        &lt;!&ndash; 获取刚增加的记录主键
+            返回id到poio对象（User）
+            SELECT LAST_INSERT_ID():得到刚插入金进去记录的主键值，只适用于自增逐主键
+            keyProperty：将查询到的主键值设置到parameterType指定的对象User里面的用来做id的属性，这里是：id,
+　　　　　　　　　　　　　　然后在执行插入的时候，从parameterType（也就是这里的User）的Id里面取出来，进行插入
+            order:指SELECT LAST_INSERT_ID()的执行顺序，相对于insert来说（before/after）
+            resultType:指定SELECT LAST_INSERT_ID()的结果类型
+        &ndash;&gt;
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO USER (id,username,birthday,sex,address) VALUES(#{id},#{username},#{birthday},#{sex},#{address})
+
+        &lt;!&ndash; 使用mysql的uuid生成主键返回
+             执行过程：
+                首先通过uuid得到主键，然后将主键设置到id属性中
+                其次在Inster执行的时候从User对象中取出id的属性值
+         &ndash;&gt;
+        &lt;!&ndash;
+ 　　　　  <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
+              SELECT UUID()
+          </selectKey>
+        　INSERT INTO USER (id,username,birthday,sex,address) VALUES(#{id},#{username},#{birthday},#{sex},#{address})
+ 　　　　&ndash;&gt;
+    </insert>
+
+    &lt;!&ndash; 根据id删除用户 &ndash;&gt;
+    <delete id="deleteUser" parameterType="java.lang.Integer">
+        DELETE FROM USER WHERE id=#{id}
+    </delete>
+
+    &lt;!&ndash; 根据id更新用户
+        传入用户id以及相关更新信息
+        #{id}:从输入的user对象中获取user的属性值
+    &ndash;&gt;
+    <update id="updateUser" parameterType="com.sw.po.User">
+        UPDATE USER SET username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} WHERE id=#{id}
+    </update>-->
+</mapper>
