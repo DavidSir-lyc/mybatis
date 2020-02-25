@@ -1,4 +1,4 @@
-package lyc.java.mybatis.mapper;
+package lyc.java.mybatis.dao;
 
 import lyc.java.mybatis.POJO.User;
 

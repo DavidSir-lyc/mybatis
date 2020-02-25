@@ -1,7 +1,7 @@
 import lyc.java.mybatis.POJO.User;
 import lyc.java.mybatis.dao.UserDao;
 import lyc.java.mybatis.impl.UserDaoImpl;
-import lyc.java.mybatis.mapper.UserMapper;
+import lyc.java.mybatis.dao.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
