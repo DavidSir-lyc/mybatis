@@ -43,7 +43,7 @@ public class Main {
         实际开发常用
         1. 建立dao层或mapper层（文件夹）
         2. 在层下，只写interface，n个interface，不用写实现类。
-        3. n个xml映射文件对应n个dao层下的interface文件，namespace必须是全限定名
+        3. n个xml映射文件对应n个dao层下的interface文件，namespace必须是全限定名，id和接口中的方法的名字一致。
         */
         try {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
