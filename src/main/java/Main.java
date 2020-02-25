@@ -47,8 +47,8 @@ public class Main {
         */
         try {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            User user = userMapper.selectUser(1);
-            System.out.println(user);
+            System.out.println(userMapper.selectUser(1));
+            System.out.println(userMapper.selectUserByName("lyc"));
         } catch (Exception e){
             sqlSession.rollback();  // 回滚事务
         } finally {

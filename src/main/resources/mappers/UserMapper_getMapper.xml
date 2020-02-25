@@ -8,12 +8,12 @@
         select *from user where id=#{id}
     </select>
 
-<!--    &lt;!&ndash;${}拼接sql串，接收参数的内容，${}中只能使用value，存在sql漏洞&ndash;&gt;
-    <select id="findUserByName" parameterType="java.lang.String" resultType="lyc.java.mybatis.POJO.User">
-        SELECT *FROM USER WHERE username LIKE '%${value}%'
+    <!--${}拼接sql串，接收参数的内容，${}中只能使用value，存在sql漏洞-->
+    <select id="selectUserByName" parameterType="java.lang.String" resultType="lyc.java.mybatis.POJO.User">
+        SELECT *FROM USER WHERE name LIKE '%${value}%'
     </select>
 
-    &lt;!&ndash; 添加用户 &ndash;&gt;
+ <!--   &lt;!&ndash; 添加用户 &ndash;&gt;
     &lt;!&ndash; 指定输入参数类型是pojo(包括用户信息)
         #{}中指定pojo（User）属性名,接收到pojo的属性值
         Mybatis通过OGNL获取对象的属性值
