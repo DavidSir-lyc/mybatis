@@ -38,7 +38,13 @@ public class Main {
         } finally {
             sqlSession.close();
         }*/
-        /*************getMapper方式的mybatis动态代理，只写接口和xml，对应UserMapper_getMapper.xml配置文件,namespace必须是全限定名**************/
+        /*************getMapper方式的mybatis动态代理，只写接口和xml，对应UserMapper_getMapper.xml配置文件**************/
+        /**
+        实际开发常用
+        1. 建立dao层或mapper层（文件夹）
+        2. 在层下，只写interface，n个interface，不用写实现类。
+        3. n个xml映射文件对应n个dao层下的interface文件，namespace必须是全限定名
+        */
         try {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
             User user = userMapper.selectUser(1);
