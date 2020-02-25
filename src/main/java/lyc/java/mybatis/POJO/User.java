@@ -1,9 +1,18 @@
 package lyc.java.mybatis.POJO;
 
 public class User {
+    private int id;
     private String name;
     private int age;
-    private int score;
+    private String score;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -21,11 +30,11 @@ public class User {
         this.age = age;
     }
 
-    public int getScore() {
+    public String getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(String score) {
         this.score = score;
     }
 

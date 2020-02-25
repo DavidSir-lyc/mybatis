@@ -13,39 +13,35 @@
         SELECT *FROM USER WHERE name LIKE '%${value}%'
     </select>
 
- <!--   &lt;!&ndash; 添加用户 &ndash;&gt;
-    &lt;!&ndash; 指定输入参数类型是pojo(包括用户信息)
-        #{}中指定pojo（User）属性名,接收到pojo的属性值
-        Mybatis通过OGNL获取对象的属性值
-     &ndash;&gt;
-    <insert id="insertUser" parameterType="com.sw.po.User">
-        &lt;!&ndash; 获取刚增加的记录主键
-            返回id到poio对象（User）
-            SELECT LAST_INSERT_ID():得到刚插入金进去记录的主键值，只适用于自增逐主键
+    <!-- 指定输入参数类型是pojo，#{}中指定pojo属性名,接收到pojo的属性值，Mybatis通过OGNL获取对象的属性值-->
+    <insert id="insertUser" parameterType="lyc.java.mybatis.POJO.User">
+        <!-- 获取刚增加的记录主键,返回id到pojo对象（User）
+
+            SELECT LAST_INSERT_ID():得到刚插入进去记录的主键值，只适用于自增逐主键
             keyProperty：将查询到的主键值设置到parameterType指定的对象User里面的用来做id的属性，这里是：id,
 　　　　　　　　　　　　　　然后在执行插入的时候，从parameterType（也就是这里的User）的Id里面取出来，进行插入
             order:指SELECT LAST_INSERT_ID()的执行顺序，相对于insert来说（before/after）
             resultType:指定SELECT LAST_INSERT_ID()的结果类型
-        &ndash;&gt;
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+        -->
+<!--        <selectKey keyProperty="id" order="AFTER" resultType="int">
             SELECT LAST_INSERT_ID()
-        </selectKey>
-        INSERT INTO USER (id,username,birthday,sex,address) VALUES(#{id},#{username},#{birthday},#{sex},#{address})
+        </selectKey>-->
+        INSERT INTO user (id,name,age,score) VALUES(#{id},#{name},#{age},#{score})
 
-        &lt;!&ndash; 使用mysql的uuid生成主键返回
+        <!-- 使用mysql的uuid生成主键返回
              执行过程：
                 首先通过uuid得到主键，然后将主键设置到id属性中
                 其次在Inster执行的时候从User对象中取出id的属性值
-         &ndash;&gt;
-        &lt;!&ndash;
+         -->
+        <!--
  　　　　  <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
               SELECT UUID()
           </selectKey>
         　INSERT INTO USER (id,username,birthday,sex,address) VALUES(#{id},#{username},#{birthday},#{sex},#{address})
- 　　　　&ndash;&gt;
+ 　　　　-->
     </insert>
 
-    &lt;!&ndash; 根据id删除用户 &ndash;&gt;
+   <!-- &lt;!&ndash; 根据id删除用户 &ndash;&gt;
     <delete id="deleteUser" parameterType="java.lang.Integer">
         DELETE FROM USER WHERE id=#{id}
     </delete>
