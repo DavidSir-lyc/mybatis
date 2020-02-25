@@ -17,16 +17,32 @@ public class Main {
         // SqlSessionFactory是数据库连接池，sqlSession代表一次mysql会话连接
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession sqlSession = sqlSessionFactory.openSession();
-        UserDao userDao = new UserDaoImpl(sqlSession);
-        try {
-            // selectOne(namespace.id, 指定传入sql的参数)
-            User user = userDao.selectUser(2);
+
+        /*************selectOne方式，不用接口编程，对应UserMapper_selectOne.xml配置文件**************/
+/*        try {
+            User user = sqlSession.selectOne("UserMapper_selectOne.selectUser", 1);
             System.out.println(user);
+        } catch (Exception e){
+            sqlSession.rollback();  // 回滚事务
+        } finally {
+            sqlSession.close();
+        }*/
 
-
-            // 编写一个mapper接口,不用实体类，而是接口动态代理生成类
-/*            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            System.out.println(userMapper.selectUserById(1));*/
+        /*************selectOne方式，引入dao层，impl层，使用接口编程，对应UserMapper_selectOne.xml配置文件**************/
+/*        try {
+            UserDao userDao = new UserDaoImpl(sqlSession);
+            User user = userDao.selectUser(1);
+            System.out.println(user);
+        } catch (Exception e){
+            sqlSession.rollback();  // 回滚事务
+        } finally {
+            sqlSession.close();
+        }*/
+        /*************getMapper方式的mybatis动态代理，只写接口和xml，对应UserMapper_getMapper.xml配置文件,namespace必须是全限定名**************/
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            User user = userMapper.selectUser(1);
+            System.out.println(user);
         } catch (Exception e){
             sqlSession.rollback();  // 回滚事务
         } finally {
