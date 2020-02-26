@@ -13,7 +13,6 @@
         SELECT *FROM USER WHERE name LIKE '%${value}%'
     </select>
 
-    <!-- 指定输入参数类型是pojo，#{}中指定pojo属性名,接收到pojo的属性值，Mybatis通过OGNL获取对象的属性值-->
     <insert id="insertUser" parameterType="lyc.java.mybatis.POJO.User">
         <!-- 获取刚增加的记录主键,返回id到pojo对象（User）
 
@@ -23,34 +22,27 @@
             order:指SELECT LAST_INSERT_ID()的执行顺序，相对于insert来说（before/after）
             resultType:指定SELECT LAST_INSERT_ID()的结果类型
         -->
-<!--        <selectKey keyProperty="id" order="AFTER" resultType="int">
+        <selectKey order="BEFORE" resultType="int">
+            SELECT UUID()
+        </selectKey>
+
+        INSERT INTO user (name,age,score) VALUES(#{name},#{age},#{score})
+
+        <!--        <selectKey order="AFTER" resultType="int">
             SELECT LAST_INSERT_ID()
         </selectKey>-->
-        INSERT INTO user (id,name,age,score) VALUES(#{id},#{name},#{age},#{score})
+        </insert>
 
-        <!-- 使用mysql的uuid生成主键返回
-             执行过程：
-                首先通过uuid得到主键，然后将主键设置到id属性中
-                其次在Inster执行的时候从User对象中取出id的属性值
-         -->
-        <!--
- 　　　　  <selectKey keyProperty="id" order="BEFORE" resultType="java.lang.String">
-              SELECT UUID()
-          </selectKey>
-        　INSERT INTO USER (id,username,birthday,sex,address) VALUES(#{id},#{username},#{birthday},#{sex},#{address})
- 　　　　-->
-    </insert>
-
-   <!-- &lt;!&ndash; 根据id删除用户 &ndash;&gt;
-    <delete id="deleteUser" parameterType="java.lang.Integer">
-        DELETE FROM USER WHERE id=#{id}
+    <!-- 根据id删除用户 -->
+    <delete id="deleteUser" parameterType="Integer">
+        DELETE FROM user WHERE id=#{id}
     </delete>
 
-    &lt;!&ndash; 根据id更新用户
+    <!-- 根据id更新用户
         传入用户id以及相关更新信息
         #{id}:从输入的user对象中获取user的属性值
-    &ndash;&gt;
-    <update id="updateUser" parameterType="com.sw.po.User">
+    -->
+<!--    <update id="updateUser" parameterType="com.sw.po.User">
         UPDATE USER SET username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} WHERE id=#{id}
     </update>-->
 </mapper>

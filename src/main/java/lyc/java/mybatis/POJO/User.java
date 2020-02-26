@@ -1,18 +1,9 @@
 package lyc.java.mybatis.POJO;
 
 public class User {
-    private int id;
     private String name;
     private int age;
     private String score;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
