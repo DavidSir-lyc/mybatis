@@ -55,9 +55,9 @@ public class Main {
             user.setName("BM");
             user.setAge(55);
             user.setScore("100.00");
-            int count = userMapper.insertUser(user);
-            System.out.println(count);
+            userMapper.insertUser(user);
             sqlSession.commit();
+            System.out.println(user);
 /*            userMapper.deleteUser(23);
             sqlSession.commit();*/
         } catch (Exception e){

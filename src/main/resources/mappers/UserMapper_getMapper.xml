@@ -13,18 +13,21 @@
         SELECT *FROM USER WHERE name LIKE '%${value}%'
     </select>
 
-    <insert id="insertUser" parameterType="lyc.java.mybatis.POJO.User">
-        <!-- 获取刚增加的记录主键,返回id到pojo对象（User）
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="id" parameterType="lyc.java.mybatis.POJO.User">
+        <!-- 实际应用开发中，应是 自增id + 生成uid(主键)
+            useGeneratedKeys：获取数据库内部生产的自增类型主键，默认为false
+            keyProperty：数据库内部生产的主键赋值给POJO的某个属性，执行插入时，从parameterType（POJO）的Id里面取出来插入
+            keyColumn：用于指定数据表中的主键，如果表中指定了主键，可省略
+            selectKey标签：返回数据生成的主键
+            order：指SELECT LAST_INSERT_ID()相对于insert执行顺序，mysql使用AFTER，oracle使用BEFORE
+            mysql的UUID生成：INSERT INTO xxx (UUID, xxx) VALUES (REPLACE(UUID(),"-",""),xxx)
 
-            SELECT LAST_INSERT_ID():得到刚插入进去记录的主键值，只适用于自增逐主键
-            keyProperty：将查询到的主键值设置到parameterType指定的对象User里面的用来做id的属性，这里是：id,
-　　　　　　　　　　　　　　然后在执行插入的时候，从parameterType（也就是这里的User）的Id里面取出来，进行插入
-            order:指SELECT LAST_INSERT_ID()的执行顺序，相对于insert来说（before/after）
-            resultType:指定SELECT LAST_INSERT_ID()的结果类型
+            返回自增类型主键：使用useGeneratedKeys，keyProperty，keyColumn三者配合这套，不用selectKey标签
+            返回非自增类型主键：使用keyColumn、keyProperty二者配合这套，与自增主键中含义一样
         -->
-        <selectKey order="BEFORE" resultType="int">
+<!--        <selectKey order="BEFORE" resultType="int">
             SELECT UUID()
-        </selectKey>
+        </selectKey>-->
 
         INSERT INTO user (name,age,score) VALUES(#{name},#{age},#{score})
 
