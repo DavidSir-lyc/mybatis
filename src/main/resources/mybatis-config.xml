@@ -16,7 +16,7 @@
 
     <environments default="dev">
         <environment id="dev">
-            <transactionManager type="JDBC" />
+            <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
                 <property name="driver" value="${driver}" /> <!-- 配置了properties，所以可以直接引用 -->
                 <property name="url" value="${url}" />
