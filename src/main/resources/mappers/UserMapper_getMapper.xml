@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
+<!--如果使用Mybatis的DAO接口动态代理，则namespace必须为DAO接口的全路径-->
 <mapper namespace="lyc.java.mybatis.dao.UserMapper">
     <select id="selectUser" parameterType="int" resultType="lyc.java.mybatis.POJO.User">
         select *from user where id=#{id}
